@@ -158,27 +158,30 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script type='text/javascript'>
-        $('.btn').on('click', function(event) {
+        $('.submit-modal').on('click', function(event) {
             event.preventDefault();
             // Form element information
-            const surveyValues = []
-            surveyValues.push($('#question1').val().trim())
-            surveyValues.push($('#question2').val().trim())
-            surveyValues.push($('#question3').val().trim())
-            surveyValues.push($('#question4').val().trim())
-            surveyValues.push($('#question5').val().trim())
-            surveyValues.push($('#question6').val().trim())
-            surveyValues.push($('#question7').val().trim())
-            surveyValues.push($('#question8').val().trim())
-            surveyValues.push($('#question9').val().trim())
-            surveyValues.push($('#question10').val().trim())
-    
+            let surveyValues = [
+                $('#question1').val().trim(),
+                $('#question2').val().trim(),
+                $('#question3').val().trim(),
+                $('#question4').val().trim(),
+                $('#question5').val().trim(),
+                $('#question6').val().trim(),
+                $('#question7').val().trim(),
+                $('#question8').val().trim(),
+                $('#question9').val().trim(),
+                $('#question10').val().trim()
+            ];
+
+            console.log(surveyValues)
             const profile = {
                 name: $('#username').val().trim(),
                 email: $('#email').val().trim(),
                 photo: $('#profilepic').val().trim(),
-                scores: surveyValues
+                scores: surveyValues,
             }
+            console.log(profile)
             $.post('/api/friends', profile, function(data) {
                     console.log(data);
             });
