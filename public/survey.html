@@ -11,7 +11,7 @@
 
 <body>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -20,8 +20,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body text-center">
+                    <img src='https://klanza.github.io/ResponsivePortfolio/assets/images/Profile.jpg' class='img-fluid'>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -148,20 +148,33 @@
                 </select>
             </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary submit-modal" data-toggle="modal" data-target="#exampleModalCenter" >
+            <button type="button" class="btn btn-primary submit-modal" data-toggle="modal" data-target="#profileModal">
                 Submit
             </button>
         </form>
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    <a href="/api/friends">API Friends Link</a> |
+                    <a href="https://github.com/klanza/FriendFinder">GitHub Repo</a>
+                </p>
+            </div>
+        </footer>
     </div>
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script type='text/javascript'>
-        $('.submit-modal').on('click', function(event) {
+        $('.submit-modal').on('click', function (event) {
             event.preventDefault();
             // Form element information
-            let surveyValues = [
+            const profile = {
+                name: $('#username').val().trim(),
+                photo: $('#profilepic').val().trim(),
+                scores: [
                 $('#question1').val().trim(),
                 $('#question2').val().trim(),
                 $('#question3').val().trim(),
@@ -172,24 +185,16 @@
                 $('#question8').val().trim(),
                 $('#question9').val().trim(),
                 $('#question10').val().trim()
-            ];
-
-            console.log(surveyValues)
-            const profile = {
-                name: $('#username').val().trim(),
-                email: $('#email').val().trim(),
-                photo: $('#profilepic').val().trim(),
-                scores: surveyValues,
+                ],
             }
             console.log(profile)
-            $.post('/api/friends', profile, function(data) {
-                    console.log(data);
+            $.post('/api/friends', profile, function (data) {
+                console.log(data);
             });
         })
-    
+
     </script>
 
 </body>
 
 </html>
-
