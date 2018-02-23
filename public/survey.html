@@ -168,28 +168,46 @@
         crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script type='text/javascript'>
+    // Absolutely no idea why, but this is necessary to prevent jQuery from posting 'scores' key/value pair
+    // as 'scores[]:'. Due to jQuery serialization http://api.jquery.com/jQuery.param/#entry-longdesc
+    if (typeof jQuery !== 'undefined') {
+        jQuery.ajaxSettings.traditional = true;
+        }
         $('.submit-modal').on('click', function (event) {
             event.preventDefault();
             // Form element information
-            const profile = {
+            let answerArray = []
+            // answerArray.push($('#question1').val())
+            // answerArray.push($('#question2').val())
+            // answerArray.push($('#question3').val())
+            // answerArray.push($('#question4').val())
+            // answerArray.push($('#question5').val())
+            // answerArray.push($('#question6').val())
+            // answerArray.push($('#question7').val())
+            // answerArray.push($('#question8').val())
+            // answerArray.push($('#question9').val())
+            // answerArray.push($('#question10').val());
+            answerArray.push(parseInt($('#question1').val()))
+            answerArray.push(parseInt($('#question2').val()))
+            answerArray.push(parseInt($('#question3').val()))
+            answerArray.push(parseInt($('#question4').val()))
+            answerArray.push(parseInt($('#question5').val()))
+            answerArray.push(parseInt($('#question6').val()))
+            answerArray.push(parseInt($('#question7').val()))
+            answerArray.push(parseInt($('#question8').val()))
+            answerArray.push(parseInt($('#question9').val()))
+            answerArray.push(parseInt($('#question10').val()))
+            console.log(answerArray)
+        
+            let profile = {
                 name: $('#username').val().trim(),
                 photo: $('#profilepic').val().trim(),
-                scores: [
-                $('#question1').val().trim(),
-                $('#question2').val().trim(),
-                $('#question3').val().trim(),
-                $('#question4').val().trim(),
-                $('#question5').val().trim(),
-                $('#question6').val().trim(),
-                $('#question7').val().trim(),
-                $('#question8').val().trim(),
-                $('#question9').val().trim(),
-                $('#question10').val().trim()
-                ],
+                scores: answerArray
             }
-            console.log(profile)
-            $.post('/api/friends', profile, function (data) {
-                console.log(data);
+            // console.log(profile)
+            $.post('/api/friends', profile, function (response) {
+                traditional: true
+                console.log(response);
             });
         })
 
