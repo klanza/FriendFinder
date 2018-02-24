@@ -21,7 +21,10 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src='https://klanza.github.io/ResponsivePortfolio/assets/images/Profile.jpg' class='img-fluid'>
+                    <h1 class='best-name'></h1>
+                </div>
+                <div class="modal-body text-center best-photo">
+                    <img src='' class='img-fluid'>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -207,6 +210,8 @@
             // console.log(profile)
             $.post('/api/friends', profile, function (response) {
                 traditional: true
+                $('.best-name').text(response.name);
+                $('best-photo').attr('src', response.photo)
                 console.log(response);
             });
         })

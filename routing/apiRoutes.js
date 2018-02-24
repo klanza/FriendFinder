@@ -5,28 +5,30 @@ module.exports = function(app) {
         res.json(friendData);
     });
     app.post('/api/friends', function(req, res) {
+        let bestFriend = {
+            name: '',
+            photo: '',
+            matchValue: 100,
+        };
+
         let userInfo = req.body;
+        let userScore = userInfo.scores;
 
-        // console.log(userInfo)
-        // console.log(userInfo.scores)
-        let score = userInfo.scores.map(function(number) {
-            return parseInt(number, 10);
-        });
-        let bestMatchPic = '';
-        let bestMatchValue = 50;
-        let currentMatchValue = '';
-        friendData.forEach((element) => {
-            for (let i = 0; i < element.scores.length; i++) {
-                currentMatchValue += Math.abs(score[i] - parseInt(element.scores[i]));
-            } if (currentMatchValue < bestMatchValue) {
-                currentMatchValue = bestMatchValue;
-                bestMatchName = element.name;
-                bestMatchPic = element.photo;
-                console.log(bestMatchPic, bestMatchName);
-            };
-            // console.log(bestMatchPic, bestMatchName);
-        });
+        let difference = 0;
 
+        for (let i = 0; i < friendData.length; i++) {
+            difference = 0;
+
+            for (let index = 0; index < friendData[i].scores[index]; index++) {
+                difference += Math.abs(parseInt(userScore[index]) - parseInt(friendData[i].scores[index]));
+                if (difference <= bestFriend.matchValue) {
+                    bestFriend.name = friendData[i].name,
+                    bestFriend.photo = friendData[i].photo,
+                    bestFriend.matchValue = difference;
+                }
+            }
+        };
+        console.log(bestFriend);
         friendData.push(req.body);
     });
 };
